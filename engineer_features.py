@@ -65,3 +65,8 @@ all_features = ['additions', 'deletions', 'changed_files', 'commits', 'comments'
                 'description_length', 'time_open_hours', 'add_del_ratio']
 correlations = df[all_features].corrwith(df['merged'])
 print(correlations.sort_values())
+
+
+# Save processed data
+df.to_csv('github_prs_processed.csv', index=False)
+print("\n✓ Saved processed data to github_prs_processed.csv")
