@@ -3,6 +3,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+import numpy as np
+import pickle
 
 
 #Load train/test data
@@ -88,3 +90,27 @@ print(f"Logistic Regression - Test Acc: {test_accuracy:.4f}")
 print(f"Random Forest       - Test Acc: {rf_test_acc:.4f}")
 print(f"XGBoost             - Test Acc: {xgb_test_acc:.4f}")
 print("\nWinner: Random Forest (highest test accuracy)")
+
+
+
+#Feature Importance (Random Forest)
+print("\n=== Feature Importance (Random Forest) ===")
+import numpy as np
+
+feature_importance = pd.DataFrame({
+    'feature': X_train.columns,
+    'importance': rf_model.feature_importances_
+}).sort_values('importance', ascending=False)
+
+print(feature_importance.to_string(index=False))
+
+
+
+# Save the best model
+print("\n=== Saving Best Model ===")
+
+
+with open('pr_merge_model.pkl', 'wb') as f:
+    pickle.dump(rf_model, f)
+
+print("✓ Saved Random Forest model to pr_merge_model.pkl")
